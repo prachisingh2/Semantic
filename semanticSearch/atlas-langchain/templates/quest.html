@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Question</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #response-container {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit your question</h1>
+    <form id="questionForm">
+        <label for="question">Question:</label><br>
+        <input type="text" id="question" name="question"><br><br>
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
+    <div id="response-container"></div>
+
+    <script>
+    $(document).ready(function() {
+    $('#questionForm').on('submit', function(event) {
+        event.preventDefault();
+        var questionValue = $('#question').val(); 
+        $.ajax({
+            url: '/ask',
+            type: 'GET',
+            data: { question: questionValue },
+            success: function(response) {
+                if (response.answer && typeof response.answer.content === 'string') {
+                    $('#response-container').html('<strong>Answer:</strong> ' + response.answer.content);
+                } else {
+                    $('#response-container').html('<strong>Error</strong>');
+                }
+            },
+            error: function(e) {
+                //console.log(e);
+                var errorText = e.responseJSON && e.responseJSON.error ? e.responseJSON.error : e.statusText;
+                $('#response-container').html('<strong>Error:</strong> ' + errorText);
+                }
+            });
+        });
+    });
+
+    </script>
+</body>
+</html>
+

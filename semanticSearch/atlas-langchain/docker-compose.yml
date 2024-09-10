@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - OPENAI_API_KEY=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
+      - MONGODB_CONN_STRING=mongodb+srv://prachisngrwl:zxOC6l7RrquHU6Bz@cluster0.dmxrhed.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - DB_NAME=search_db
+      - COLLECTION_NAME=search_col
+      - INDEX_NAME=vsearch_index
+    command: ["python", "vectorize.py"]
+

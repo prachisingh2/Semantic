@@ -1,0 +1,12 @@
+flask
+argparse
+langchain>=0.0.231
+langchain-openai
+langchain-mongodb 
+lxml
+pymongo
+requests
+bs4
+openai
+tiktoken
+langchain_community
